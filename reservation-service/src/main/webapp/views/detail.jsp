@@ -325,7 +325,7 @@ $(document).ready(function(){
 			printPositionElement:$(".num:first")
 	}
 	
-	var visualModule = VisualModule(setting);
+	var visualModule = new VisualModule(setting);
 	visualModule.init();
 	
 	var commentModule = CommentModule;

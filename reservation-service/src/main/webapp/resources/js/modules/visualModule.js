@@ -9,10 +9,10 @@ btnPreElement:
 btnNxtElement:
 printPositionElement:
 }*/
-function VisualModule(setting) {
+//function VisualModule(setting) {
 
 
-	function makeModule(setting) {
+	function VisualModule(setting) {
 		
 		//initiallize
 		var root = setting.root;
@@ -195,11 +195,11 @@ function VisualModule(setting) {
 
 
 	}
-	
+/*	
 	
 	var instance = makeModule(setting);
 	return instance;
 
 
 
-}
+}*/
