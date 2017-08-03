@@ -1,43 +1,113 @@
-moment.locale('ko', {
-    weekdays: ["일요일","월요일","화요일","수요일","목요일","금요일","토요일"],
-    weekdaysShort: ["일","월","화","수","목","금","토"],
-});
 
+function MenuBar($item){
+	this.$item = $item;
+	this.$item.on("click",this.menuClickEvent.bind(this));
+}
 
+MenuBar.prototype = new eg.Component;
+MenuBar.prototype.constructor = MenuBar;
 
-// 핸들바 helper 설정
-Handlebars.registerHelper('exit', function (string,value) {
-	if(value){
-		 return string +' ('+ value+')';
+MenuBar.prototype.menuClickEvent = 	function menuClickEvent(event){
+	event.preventDefault();
+	$(".link_summary_board ").not(this.$item).removeClass("on");
+	this.$item.addClass("on");
+	// trigger을 써야되나 ?
+};
+
+var templateSource = $("#reservation-content").html(),
+Template = Handlebars.compile(templateSource);
+
+function MainContents($card){
+	this.$card = $("."+$card).eq(0);
+	this.type = this.$card.data("type");
+	this.loadContents.call(this);
+	this.$card.on("click", ".booking_cancel",this.btnClick.bind(this));
+}
+
+MainContents.prototype = new eg.Component;
+MainContents.prototype.contructor = MainContents;
+
+MainContents.prototype.confirmType = function(className){
+	var menubar = [];
+	console.log(className);
+	if(className === "expectation"){
+		menubar[0] = "예약 신청중";
+		menubar[1] = "ico_clock";
+		menubar[2] = "취소";
+	}else if(className === "confirmed"){
+		menubar[0] = "예약 확정";
+		menubar[1] = "ico_check2";
+		menubar[2] = "취소";
+	}else if(className === "used"){
+		menubar[0] = "이용 완료";
+		menubar[1] = "ico_check2";
+		menubar[2] = "예매자 리뷰 남기기";
+	}else{
+		menubar[0] = "취소된 예약";
+		menubar[1] = "ico_cancel";
+		menubar[2] = "";
 	}
-	return '';
+	return menubar;
+}
+
+MainContents.prototype.loadContents = function(){
+	var $card = this.$card;
+	var menubar = this.confirmType($card.attr("class").split(' ')[1]);
+	$.ajax({
+		method : "GET",
+		url : "/api/reservation/type/"+this.type
+	}).done(function(data) {
+		
+		if (data.length !== 0) {
+			var item = {
+					reservation : [],
+					menubar : [{ menubar : menubar[0], icon : menubar[1]}]
+			};
+			for (var i = 0, max = data.length; i < max; ++i) {
+				item.reservation.push(data[i]);
+				data[i].btns = menubar[2];
+			}
+			//expectationLength += max ;
+			var html = Template(item);
+			$card.append(html);
+		}
+	});
+}
+
+MainContents.prototype.btnClick = function(){
+	console.log("내가 왔다 ~~ ");
+	// 타입 체크 후 알맞는 이벤트  ~ 
+}
+
+
+/*
+
+$(".btn_gray, .popup_btn_close").on("click",function(event){
+	event.preventDefault();
+	$(".popup_booking_wrapper").addClass("none");
+});
+$(".btn_green").on("click",cancellationBtn);
+$(".expectation, .confirmed").on("click",".booking_cancel .btn",confirmCancellationBtn);
+
+$(".used:first").on("click",".booking_cancel .btn",function(event){
+	// 이동하기 
+	event.preventDefault();
+	var reservation_info =0;
+	$cardDetail = $(this).parents(".card_detail");
+	reservation_info = $cardDetail.data("id");
+	location.href = "/product/"+reservation_info+"/review-write";
 });
 
-Handlebars.registerHelper('plus', function (first,second,third) {
-	  return first+ second + third;
-});
+*/
 
-Handlebars.registerHelper("timeStamp", function(timestamp) {
-	  if (moment) {
-	    // can use other formats like 'lll' too
-	    return  moment(timestamp).format("YYYY.DD.MM (ddd)");
-	  }
-	  else {
-	    return datetime;
-	  }
-});
 
-Handlebars.registerHelper("btnText", function(btn) {
-	 return btn;
-});
-
-var ReservationState = (function(){
+/*var ReservationState = (function(){
 	// 이 부분은 Hendlebar 설정 부분 
 	var templateSource = $("#reservation-content").html(),
 	Template = Handlebars.compile(templateSource);
 	
 	// 상단 bar의 contents들을 저장하고 있음. 
-	var $all = $(".link_summary_board ").eq(0),
+	var $all = $(".link_summary_board").eq(0),
 	$expectation =$(".link_summary_board ").eq(1),
 	$usedLength = $(".link_summary_board ").eq(2),
 	$cancellation = $(".link_summary_board").eq(3);
@@ -54,12 +124,7 @@ var ReservationState = (function(){
 
 	// enum 같은 느낌으로 사용.
 	// ENUM 을 이렇게 사용하는게 맞는지 의문이 생김.
-	var reservationTypeEnum = {
-		    ALL_RESERVATION : 0,
-		    EXPECTATION : 1,
-		    END : 2,
-		    CENCELLATION : 3
-		}
+
 	
 	// 취소하겠냐는 확인을 보여주는 event 
 	function confirmCancellationBtn(event){
@@ -123,10 +188,10 @@ var ReservationState = (function(){
 	
 	
 	function loading(type,$card,_menubar,_icon,_btns){
-		// 받아온 data의 길이로 max를 설정하고, return 받기 위해  비동기를 막아 두었습니다. 
+		
 		$.ajax({
 			method : "GET",
-			url : "/reservation/type/"+type
+			url : "/api/reservation/type/"+type
 		}).done(function(data) {
 			if (data.length !== 0) {
 				var item = {
@@ -146,44 +211,7 @@ var ReservationState = (function(){
 	
 	
 	
-	// 함수가 조금 길지 않나 ... 
-	function menuClickEvent(event){
-		// 선택된 인자외에 다 none 처리 
-		event.preventDefault();
-		var index = $(".link_summary_board").index(this);
-		$dumyCard = null;
-		
-		if(index === reservationTypeEnum.ALL_RESERVATION){
-			// 0
-			$allCards.removeClass("none");
-			$dumy = $allCards;
-			
-		}else if(index === reservationTypeEnum.EXPECTATION){
-			// 1
-			$expectationCard.removeClass("none");
-			$(".card:eq(2), .card:eq(3)").addClass("none");
-			
-			$dumy = $expectationCard;
-		}else if(index === reservationTypeEnum.END){
-			// 2
-			$usedCard.removeClass("none");
-			$(".card").not($usedCard).addClass("none");
-			$dumy = $usedCard;
-		}else if(index === reservationTypeEnum.CENCELLATION){
-			// 3
-			$allCards.not($cancellationCard).addClass("none");
-			$cancellationCard.removeClass("none");
-			$dumy = $cancellationCard;
-		}
-		
-		$(".on").removeClass("on");
-		$(".link_summary_board").eq(index).addClass("on");
-		if($dumy.children("article").length){
-			$(".err").addClass("none");
-		}else{
-			$(".err").removeClass("none");
-		}
-	}
+
 	
 	return{
 		
@@ -204,21 +232,7 @@ var ReservationState = (function(){
 			
 			// 버튼 취소 이벤트 
 			// 취소 버튼과 x 버튼 누르면 안보이게 진행
-			$(".btn_gray, .popup_btn_close").on("click",function(event){
-				event.preventDefault();
-				$(".popup_booking_wrapper").addClass("none");
-			});
-			$(".btn_green").on("click",cancellationBtn);
-			$(".expectation, .confirmed").on("click",".booking_cancel .btn",confirmCancellationBtn);
 			
-			$(".used:first").on("click",".booking_cancel .btn",function(event){
-				// 이동하기 
-				event.preventDefault();
-				var reservation_info =0;
-				$cardDetail = $(this).parents(".card_detail");
-				reservation_info = $cardDetail.data("id");
-				location.href = "/review-write/"+reservation_info;
-			});
 		},
 		isEmpty : function(){
 			var txt = $all.find(".figure:first").text();
@@ -228,4 +242,4 @@ var ReservationState = (function(){
 		}
 		
 	}
-})();
+})();*/

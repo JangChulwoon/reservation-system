@@ -28,7 +28,7 @@ import kr.or.reservation.service.ReservationInfoService;
 import kr.or.reservation.service.UserReservationService;
 
 @RestController
-@RequestMapping(path = "/reservation")
+@RequestMapping(path = "/api/reservation")
 public class RestReservationInfoController {
 
 	ReservationInfoService reservationInfoService;
@@ -45,7 +45,12 @@ public class RestReservationInfoController {
 		this.userReservationService = userReservationService;
 	}
 
-	// RestController에 Session 을 사용해도 되나요 ? 
+	@GetMapping()
+	public List<UserReservationDTO> getReservationAll(HttpSession session) {
+		int id = (Integer)session.getAttribute("id");
+		return 	userReservationService.selectReservationAll(id);
+	}
+	
 	@GetMapping("/type/{type}")
 	public List<UserReservationDTO> getReservationByType(@PathVariable int type,HttpSession session) {
 		int id = (Integer)session.getAttribute("id");
@@ -59,7 +64,6 @@ public class RestReservationInfoController {
 	}
 	
 	
-	// RestController에 Session 을 사용해도 되나요 ? 
 	@DeleteMapping("/{reservationId}")
 	public boolean deleteProduct(@PathVariable int reservationId,HttpSession session) {
 		int id = (Integer)session.getAttribute("id");

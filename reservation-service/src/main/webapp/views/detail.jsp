@@ -24,7 +24,7 @@
                         <a href="/" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
                         <a href="/" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
                     </h1>
-                    <a class="btn_my"> <span title="내 예약">MY</span> </a>
+                    <a class="btn_my" href = "/my"> <span title="내 예약">MY</span> </a>
                 </header>
                 <div class="pagination">
                     <div class="bg_pagination"></div>
@@ -38,7 +38,7 @@
                         <div class="container_visual" style="width: 414px;">
                             <ul class="visual_img">
                             <c:forEach items="${img}" var="list" varStatus="status">
-                                <li class="item" style="width: 414px;"> <img alt="" class="img_thumb" src="/img/${list.fileId}"> <span class="img_bg"></span>
+                                <li class="item" style="width: 414px;"> <img alt="" class="img_thumb" src="/api/img/${list.fileId}"> <span class="img_bg"></span>
                                     <!-- if 문을 추가. 이렇게 하면 매번 if문 체크를 해야되는데 ...   -->
                                     <c:if test="${status.index == 0}">
 					    			<div class="visual_txt">
@@ -123,7 +123,7 @@
                                     <c:if test="${list.imageCount != 0}">
                                         <div class="thumb_area" >
                                             <a  class="thumb" title="이미지 크게 보기" data-comment="${list.id}"> 
-                                            	<img width="90" height="90" class="img_vertical_top" src='/img/${list.firstImageSaveFileName}' alt="리뷰이미지"> 
+                                            	<img width="90" height="90" class="img_vertical_top" src='/api/img/${list.firstImageSaveFileName}' alt="리뷰이미지"> 
                                             </a> 
                                             <span class="img_count">${list.imageCount}
                                             </span>                                                
@@ -265,7 +265,7 @@
 	<script id="layer-content" type="text/x-handlebars-template">
                     {{#items}}
 					<li class="item" style="width: 414px;"> 
-                		<img alt="" class="img_thumb" src="/img/{{file_id}}">
+                		<img alt="" class="img_thumb" src="/api/img/{{file_id}}">
                	 	</li>
 					{{/items}}
  	</script>	
@@ -280,39 +280,33 @@
 <!--  Handlebar -->
 <script src="//cdn.jsdelivr.net/handlebarsjs/4.0.8/handlebars.min.js"></script>
 
-<script src="/resources/js/loginCheck.js"></script>
-
-
-
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=w0YSpFZqo6SXUXy5itSy&submodules=geocoder"></script>
 <script src="/resources/js/naverMap.js"></script>
 <script src="/resources/js/modules/visualModule.js"></script>
 <script src="/resources/js/modules/commentModule.js"></script>
+<script src="/resources/js/modules/detailModule.js"></script>
 <script>
 function getProductId() {
 	return ${detail.id};
 }
 
+function getReviewCount() {
+	return ${fn:length(comment)};
+}
+
+function getScore(){
+	return ${avg.avgScore};
+}
+
 $(document).ready(function(){
-	// 평점 view
-	(function(){
-		var reviewCount = '${avg.amountOfCount}';
-		if(reviewCount<3){
-			$(".btn_review_more").addClass('hide');
-		}
-	})();
 	
-	
+	DetailModule.init(getReviewCount(),getProductId(),getScore());
 	naverMap('${detail.placeLot}');
-	
 	var $ul = $(".visual_img:first"),
 	$point = $(".num:first"),
 	templateSource = $("#layer-content").html(),
 	$ulPop = $(".visual_img:last"),
 	$popupPoint = $(".num.popup");
-	
-/* 	var touch = new CaroucelTouch($ul,$point);
-	CarocelDetail.init(touch); */
 	
 	var setting = {
 			root: $(".section_visual"),
@@ -330,100 +324,6 @@ $(document).ready(function(){
 	
 	var commentModule = CommentModule;
 	commentModule.init(getProductId());
-	
-	
-	// layer popup
-/* 	
-	$(".thumb").on("click",function(){
-		var comment = $(this).data("id"),
-		caroucelPopup = {};
-		caroucelPopup = new CaroucelPopup($ulPop,$popupPoint);
-			
-		$(".layer").removeClass("_none");
-		$.ajax({
-			method : "GET",
-			url : "/commentImg/"+comment,
-			contentType : "application/json; charset=utf-8",
-			dataType : "json"
-		}).done(caroucelPopup.getLayerImg.bind(caroucelPopup))
-		.always(function(){
-			// count 초기화 및 module로 이벤트 등록
-			$popupPoint.text("1");
-			$(".num.off:last > span").text($ulPop.children().length);
-			CarocelDetail.init(caroucelPopup);
-		});
-	});	
-	
-	
-	$(".close").on("click",function(){
-		var $ul = $(".visual_img:last");
-		$(".layer").addClass("_none");
-		$ul.children(".item").remove();	
-		CarocelDetail.destroy($ul);
-	});
-	
-	$(".graph_value").css("width",('${avg.avgScore}' * 20)+"%");
-	 */
-	(function bkBtnCheck(){
-		
-		var $btn =$(".bk_btn"), 
-		config = $btn.data("config"),
-		$span = $(".bk_btn > span");
-		
-		if(!config){
-			$span.text("예매하기");
-			$btn.on("click",function(){
-				location.href='/product/reservation/'+${detail.id};
-			});
-		}else if(config === 1){
-			$span.text("매진");
-		}else{
-			$span.text("판매기간 종료");
-		}
-	})();
-	
-	
-	//store_details
-	// 재사용하지 않을거라 판단하여 모듈화를 진행하지 않았습니다. 
-	
-	$("._open").on("click", function(){
-		$(".store_details").removeClass("close3");
-		$("._open").addClass("_none");
-		$("._close").removeClass("_none");
-	});
-	
-	$("._close").on("click",function(){
-		$(".store_details").addClass("close3");
-		$("._close").addClass("_none");
-		$("._open").removeClass("_none");
-	});
-	
-
-	
-	$("._detail").on("click",function(){
-		$("._path>  a").removeClass("active");
-		$("._detail> a").addClass("active");
-		$(".detail_location").addClass("hide");
-		$(".detail_area_wrap").removeClass("hide");
-	});
-	
-	$("._path").on("click",function(){
-		$("._detail> a").removeClass("active");
-		$(".detail_location").removeClass("hide");
-		$(".detail_area_wrap").addClass("hide");
-		$("._path>  a").addClass("active");
-	});
-	
-	
-	//scroll
-	// lazy 부분 
-	 $(document).scroll(function(){
-		 if ($(window).scrollTop() >= $(document).height() - $(window).height()) {
-			 var $img = $(".in_img_lst:last > .img_thumb");
-			 var data =  $img.data("lazy-image");
-			 $img.attr("src",data);
-		 }
-	 });
 });
 	
 	
