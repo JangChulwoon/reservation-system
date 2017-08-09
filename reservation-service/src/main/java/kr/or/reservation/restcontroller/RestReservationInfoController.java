@@ -34,7 +34,7 @@ public class RestReservationInfoController {
 	ReservationInfoService reservationInfoService;
 	UserReservationService userReservationService;
 	Logger log = Logger.getLogger(this.getClass());
-	
+
 	@Autowired
 	protected void setReservationInfoService(ReservationInfoService reservationInfoService) {
 		this.reservationInfoService = reservationInfoService;
@@ -47,31 +47,27 @@ public class RestReservationInfoController {
 
 	@GetMapping()
 	public List<UserReservationDTO> getReservationAll(HttpSession session) {
-		int id = (Integer)session.getAttribute("id");
-		return 	userReservationService.selectReservationAll(id);
+		int id = (Integer) session.getAttribute("id");
+		return userReservationService.selectReservationAll(id);
 	}
-	
+
 	@GetMapping("/type/{type}")
-	public List<UserReservationDTO> getReservationByType(@PathVariable int type,HttpSession session) {
-		int id = (Integer)session.getAttribute("id");
-		return 	userReservationService.selectReservationByType(id, type);
+	public List<UserReservationDTO> getReservationByType(@PathVariable int type, HttpSession session) {
+		int id = (Integer) session.getAttribute("id");
+		return userReservationService.selectReservationByType(id, type);
 	}
-	
+
 	@PostMapping
-	public Long insert(@ModelAttribute ReservationInfo reservationInfo ){
+	public Long insert(@ModelAttribute ReservationInfo reservationInfo) {
 		log.info(reservationInfo);
 		return reservationInfoService.insert(reservationInfo);
 	}
-	
-	
+
 	@DeleteMapping("/{reservationId}")
-	public boolean deleteProduct(@PathVariable int reservationId,HttpSession session) {
-		int id = (Integer)session.getAttribute("id");
+	public boolean deleteProduct(@PathVariable int reservationId, HttpSession session) {
+		int id = (Integer) session.getAttribute("id");
 		return userReservationService.cancelReservation(id, reservationId);
-		
+
 	}
-	
-
-
 
 }

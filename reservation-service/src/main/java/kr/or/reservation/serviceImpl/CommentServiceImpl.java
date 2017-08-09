@@ -69,15 +69,14 @@ public class CommentServiceImpl implements CommentService {
 			if (count == null || AVG == null) {
 				Map<String, Object> map = commentDao.selectAvgScoreByProductId(producId).get(0);
 				// null check
-				// getOrDefault() 을 사용하면 삼항 연산자 필요 없음.
-				AVG = (map.get("avg_score") == null) ? 0 : ((BigDecimal) map.get("avg_score")).floatValue();
-				count = (map.get("avg_score") == null) ? 0 : (Long) map.get("amount_of_count");
+				AVG = (Float) map.getOrDefault("avg_score", 0);
+				count = (Long) map.getOrDefault("amount_of_count", 0);
 				AVGForComment.setCount(producId, count);
 				AVGForComment.setAVG(producId, AVG);
-				return new AVGForComment(count, AVG);
-			} else {
-				return new AVGForComment(count, AVG);
+
 			}
+			return new AVGForComment(count, AVG);
+
 		}
 		return null;
 	}

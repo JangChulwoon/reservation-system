@@ -20,10 +20,9 @@ public class RestCategoryController {
 	CategoryService catergoryservice;
 
 	@GetMapping
-	public List<Category> selectAll(Model model){
-    	List<Category> list = catergoryservice.selectforList();
-    	return list;
+	public List<Category> selectAll(Model model) {
+		List<Category> list = catergoryservice.selectforList();
+		return list;
 	}
-	
 
 }

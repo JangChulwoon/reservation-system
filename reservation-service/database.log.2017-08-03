@@ -1,0 +1,358 @@
+http-bio-80-exec-3> [2017-08-03 14:50:08] [sqlonly] [226] [INFO] select count(*) from product 
+ 
+http-bio-80-exec-10> [2017-08-03 14:50:08] [sqlonly] [226] [INFO] select product.id , product.category_id , product.name,detail.content ,display.place_name, 
+img.file_id from product left outer join product_detail as detail on product.id = detail.product_id 
+left outer join display_info as display on product.id = display.product_id left outer join 
+product_image as img on product.id = img.product_id inner join file on file.id = img.file_id 
+where img.type = 1 limit 0 , 10 
+ 
+http-bio-80-exec-8> [2017-08-03 14:50:08] [sqlonly] [226] [INFO] select * from category 
+ 
+http-bio-80-exec-2> [2017-08-03 14:50:08] [sqlonly] [226] [INFO] select product.id , product.category_id , product.name,detail.content ,display.place_name, 
+img.file_id from product left outer join product_detail as detail on product.id = detail.product_id 
+left outer join display_info as display on product.id = display.product_id left outer join 
+product_image as img on product.id = img.product_id inner join file on file.id = img.file_id 
+where img.type = 1 limit 0 , 10 
+ 
+http-bio-80-exec-3> [2017-08-03 14:50:08] [sqltiming] [370] [INFO] select count(*) from product 
+ {executed in 8 msec} 
+http-bio-80-exec-10> [2017-08-03 14:50:08] [sqltiming] [370] [INFO] select product.id , product.category_id , product.name,detail.content ,display.place_name, 
+img.file_id from product left outer join product_detail as detail on product.id = detail.product_id 
+left outer join display_info as display on product.id = display.product_id left outer join 
+product_image as img on product.id = img.product_id inner join file on file.id = img.file_id 
+where img.type = 1 limit 0 , 10 
+ {executed in 12 msec} 
+http-bio-80-exec-8> [2017-08-03 14:50:08] [sqltiming] [370] [INFO] select * from category 
+ {executed in 4 msec} 
+http-bio-80-exec-2> [2017-08-03 14:50:08] [sqltiming] [370] [INFO] select product.id , product.category_id , product.name,detail.content ,display.place_name, 
+img.file_id from product left outer join product_detail as detail on product.id = detail.product_id 
+left outer join display_info as display on product.id = display.product_id left outer join 
+product_image as img on product.id = img.product_id inner join file on file.id = img.file_id 
+where img.type = 1 limit 0 , 10 
+ {executed in 17 msec} 
+http-bio-80-exec-10> [2017-08-03 14:50:08] [sqlonly] [226] [INFO] SELECT * FROM file where id = 1; 
+ 
+http-bio-80-exec-2> [2017-08-03 14:50:08] [sqlonly] [226] [INFO] SELECT * FROM file where id = 3; 
+ 
+http-bio-80-exec-10> [2017-08-03 14:50:08] [sqltiming] [370] [INFO] SELECT * FROM file where id = 1; 
+ {executed in 1 msec} 
+http-bio-80-exec-2> [2017-08-03 14:50:08] [sqltiming] [370] [INFO] SELECT * FROM file where id = 3; 
+ {executed in 0 msec} 
+http-bio-80-exec-8> [2017-08-03 14:50:08] [sqlonly] [226] [INFO] SELECT * FROM file where id = 5; 
+ 
+http-bio-80-exec-8> [2017-08-03 14:50:08] [sqltiming] [370] [INFO] SELECT * FROM file where id = 5; 
+ {executed in 1 msec} 
+http-bio-80-exec-3> [2017-08-03 14:50:08] [sqlonly] [226] [INFO] SELECT * FROM file where id = 7; 
+ 
+http-bio-80-exec-3> [2017-08-03 14:50:08] [sqltiming] [370] [INFO] SELECT * FROM file where id = 7; 
+ {executed in 1 msec} 
+http-bio-80-exec-9> [2017-08-03 14:50:08] [sqlonly] [226] [INFO] SELECT * FROM file where id = 2; 
+ 
+http-bio-80-exec-9> [2017-08-03 14:50:08] [sqltiming] [370] [INFO] SELECT * FROM file where id = 2; 
+ {executed in 0 msec} 
+http-bio-80-exec-6> [2017-08-03 14:50:08] [sqlonly] [226] [INFO] SELECT * FROM file where id = 9; 
+ 
+http-bio-80-exec-6> [2017-08-03 14:50:08] [sqltiming] [370] [INFO] SELECT * FROM file where id = 9; 
+ {executed in 0 msec} 
+http-bio-80-exec-7> [2017-08-03 14:50:08] [sqlonly] [226] [INFO] SELECT * FROM file where id = 8; 
+ 
+http-bio-80-exec-2> [2017-08-03 14:50:08] [sqlonly] [226] [INFO] SELECT * FROM file where id = 4; 
+ 
+http-bio-80-exec-7> [2017-08-03 14:50:08] [sqltiming] [370] [INFO] SELECT * FROM file where id = 8; 
+ {executed in 3 msec} 
+http-bio-80-exec-2> [2017-08-03 14:50:08] [sqltiming] [370] [INFO] SELECT * FROM file where id = 4; 
+ {executed in 2 msec} 
+http-bio-80-exec-8> [2017-08-03 14:50:08] [sqlonly] [226] [INFO] SELECT * FROM file where id = 10; 
+ 
+http-bio-80-exec-10> [2017-08-03 14:50:08] [sqlonly] [226] [INFO] SELECT * FROM file where id = 6; 
+ 
+http-bio-80-exec-8> [2017-08-03 14:50:08] [sqltiming] [370] [INFO] SELECT * FROM file where id = 10; 
+ {executed in 3 msec} 
+http-bio-80-exec-10> [2017-08-03 14:50:08] [sqltiming] [370] [INFO] SELECT * FROM file where id = 6; 
+ {executed in 2 msec} 
+[INFO ] 2017-08-03 14:52:03,645 (Slf4jSpyLogDelegator.java:226) 
+ select count(*) from product 
+
+[INFO ] 2017-08-03 14:52:03,649 (Slf4jSpyLogDelegator.java:370) 
+ select count(*) from product 
+ {executed in 3 msec}
+[INFO ] 2017-08-03 14:52:03,654 (Slf4jSpyLogDelegator.java:226) 
+ select * from category 
+
+[INFO ] 2017-08-03 14:52:03,657 (Slf4jSpyLogDelegator.java:226) 
+ select product.id , product.category_id , product.name,detail.content ,display.place_name, 
+img.file_id from product left outer join product_detail as detail on product.id = detail.product_id 
+left outer join display_info as display on product.id = display.product_id left outer join 
+product_image as img on product.id = img.product_id inner join file on file.id = img.file_id 
+where img.type = 1 limit 0 , 10 
+
+[INFO ] 2017-08-03 14:52:03,666 (Slf4jSpyLogDelegator.java:370) 
+ select * from category 
+ {executed in 11 msec}
+[INFO ] 2017-08-03 14:52:03,669 (Slf4jSpyLogDelegator.java:370) 
+ select product.id , product.category_id , product.name,detail.content ,display.place_name, 
+img.file_id from product left outer join product_detail as detail on product.id = detail.product_id 
+left outer join display_info as display on product.id = display.product_id left outer join 
+product_image as img on product.id = img.product_id inner join file on file.id = img.file_id 
+where img.type = 1 limit 0 , 10 
+ {executed in 12 msec}
+[INFO ] 2017-08-03 14:52:03,961 (Slf4jSpyLogDelegator.java:226) 
+ select product.id , product.category_id , product.name,detail.content ,display.place_name, 
+img.file_id from product left outer join product_detail as detail on product.id = detail.product_id 
+left outer join display_info as display on product.id = display.product_id left outer join 
+product_image as img on product.id = img.product_id inner join file on file.id = img.file_id 
+where img.type = 1 limit 0 , 10 
+
+[INFO ] 2017-08-03 14:52:03,969 (Slf4jSpyLogDelegator.java:370) 
+ select product.id , product.category_id , product.name,detail.content ,display.place_name, 
+img.file_id from product left outer join product_detail as detail on product.id = detail.product_id 
+left outer join display_info as display on product.id = display.product_id left outer join 
+product_image as img on product.id = img.product_id inner join file on file.id = img.file_id 
+where img.type = 1 limit 0 , 10 
+ {executed in 7 msec}
+[INFO ] 2017-08-03 14:52:04,099 (Slf4jSpyLogDelegator.java:226) 
+ SELECT * FROM file where id = 1; 
+
+[INFO ] 2017-08-03 14:52:04,101 (Slf4jSpyLogDelegator.java:370) 
+ SELECT * FROM file where id = 1; 
+ {executed in 1 msec}
+[INFO ] 2017-08-03 14:52:04,116 (Slf4jSpyLogDelegator.java:226) 
+ SELECT * FROM file where id = 3; 
+
+[INFO ] 2017-08-03 14:52:04,117 (Slf4jSpyLogDelegator.java:370) 
+ SELECT * FROM file where id = 3; 
+ {executed in 1 msec}
+[INFO ] 2017-08-03 14:52:04,143 (Slf4jSpyLogDelegator.java:226) 
+ SELECT * FROM file where id = 5; 
+
+[INFO ] 2017-08-03 14:52:04,146 (Slf4jSpyLogDelegator.java:370) 
+ SELECT * FROM file where id = 5; 
+ {executed in 1 msec}
+[INFO ] 2017-08-03 14:52:04,146 (Slf4jSpyLogDelegator.java:226) 
+ SELECT * FROM file where id = 7; 
+
+[INFO ] 2017-08-03 14:52:04,162 (Slf4jSpyLogDelegator.java:226) 
+ SELECT * FROM file where id = 4; 
+
+[INFO ] 2017-08-03 14:52:04,147 (Slf4jSpyLogDelegator.java:226) 
+ SELECT * FROM file where id = 9; 
+
+[INFO ] 2017-08-03 14:52:04,163 (Slf4jSpyLogDelegator.java:370) 
+ SELECT * FROM file where id = 7; 
+ {executed in 1 msec}
+[INFO ] 2017-08-03 14:52:04,164 (Slf4jSpyLogDelegator.java:370) 
+ SELECT * FROM file where id = 4; 
+ {executed in 2 msec}
+[INFO ] 2017-08-03 14:52:04,178 (Slf4jSpyLogDelegator.java:370) 
+ SELECT * FROM file where id = 9; 
+ {executed in 14 msec}
+[INFO ] 2017-08-03 14:52:04,179 (Slf4jSpyLogDelegator.java:226) 
+ SELECT * FROM file where id = 2; 
+
+[INFO ] 2017-08-03 14:52:04,181 (Slf4jSpyLogDelegator.java:370) 
+ SELECT * FROM file where id = 2; 
+ {executed in 1 msec}
+[INFO ] 2017-08-03 14:52:04,210 (Slf4jSpyLogDelegator.java:226) 
+ SELECT * FROM file where id = 6; 
+
+[INFO ] 2017-08-03 14:52:04,212 (Slf4jSpyLogDelegator.java:370) 
+ SELECT * FROM file where id = 6; 
+ {executed in 1 msec}
+[INFO ] 2017-08-03 14:52:04,230 (Slf4jSpyLogDelegator.java:226) 
+ SELECT * FROM file where id = 8; 
+
+[INFO ] 2017-08-03 14:52:04,231 (Slf4jSpyLogDelegator.java:370) 
+ SELECT * FROM file where id = 8; 
+ {executed in 1 msec}
+[INFO ] 2017-08-03 14:52:04,246 (Slf4jSpyLogDelegator.java:226) 
+ SELECT * FROM file where id = 10; 
+
+[INFO ] 2017-08-03 14:52:04,247 (Slf4jSpyLogDelegator.java:370) 
+ SELECT * FROM file where id = 10; 
+ {executed in 1 msec}
+[INFO ] 2017-08-03 15:01:04,278 (Slf4jSpyLogDelegator.java:226) 
+ select * from category 
+
+[INFO ] 2017-08-03 15:01:04,278 (Slf4jSpyLogDelegator.java:226) 
+ select count(*) from product 
+
+[INFO ] 2017-08-03 15:01:04,281 (Slf4jSpyLogDelegator.java:226) 
+ select product.id , product.category_id , product.name,detail.content ,display.place_name, 
+img.file_id from product left outer join product_detail as detail on product.id = detail.product_id 
+left outer join display_info as display on product.id = display.product_id left outer join 
+product_image as img on product.id = img.product_id inner join file on file.id = img.file_id 
+where img.type = 1 limit 0 , 10 
+
+[INFO ] 2017-08-03 15:01:04,281 (Slf4jSpyLogDelegator.java:226) 
+ select product.id , product.category_id , product.name,detail.content ,display.place_name, 
+img.file_id from product left outer join product_detail as detail on product.id = detail.product_id 
+left outer join display_info as display on product.id = display.product_id left outer join 
+product_image as img on product.id = img.product_id inner join file on file.id = img.file_id 
+where img.type = 1 limit 0 , 10 
+
+[INFO ] 2017-08-03 15:01:04,283 (Slf4jSpyLogDelegator.java:370) 
+ select * from category 
+ {executed in 4 msec}
+[INFO ] 2017-08-03 15:01:04,286 (Slf4jSpyLogDelegator.java:370) 
+ select count(*) from product 
+ {executed in 4 msec}
+[INFO ] 2017-08-03 15:01:04,291 (Slf4jSpyLogDelegator.java:370) 
+ select product.id , product.category_id , product.name,detail.content ,display.place_name, 
+img.file_id from product left outer join product_detail as detail on product.id = detail.product_id 
+left outer join display_info as display on product.id = display.product_id left outer join 
+product_image as img on product.id = img.product_id inner join file on file.id = img.file_id 
+where img.type = 1 limit 0 , 10 
+ {executed in 9 msec}
+[INFO ] 2017-08-03 15:01:04,297 (Slf4jSpyLogDelegator.java:370) 
+ select product.id , product.category_id , product.name,detail.content ,display.place_name, 
+img.file_id from product left outer join product_detail as detail on product.id = detail.product_id 
+left outer join display_info as display on product.id = display.product_id left outer join 
+product_image as img on product.id = img.product_id inner join file on file.id = img.file_id 
+where img.type = 1 limit 0 , 10 
+ {executed in 13 msec}
+[INFO ] 2017-08-03 15:01:04,462 (Slf4jSpyLogDelegator.java:226) 
+ SELECT * FROM file where id = 9; 
+
+[INFO ] 2017-08-03 15:01:04,463 (Slf4jSpyLogDelegator.java:226) 
+ SELECT * FROM file where id = 5; 
+
+[INFO ] 2017-08-03 15:01:04,462 (Slf4jSpyLogDelegator.java:226) 
+ SELECT * FROM file where id = 7; 
+
+[INFO ] 2017-08-03 15:01:04,465 (Slf4jSpyLogDelegator.java:226) 
+ SELECT * FROM file where id = 3; 
+
+[INFO ] 2017-08-03 15:01:04,466 (Slf4jSpyLogDelegator.java:370) 
+ SELECT * FROM file where id = 7; 
+ {executed in 2 msec}
+[INFO ] 2017-08-03 15:01:04,467 (Slf4jSpyLogDelegator.java:370) 
+ SELECT * FROM file where id = 5; 
+ {executed in 4 msec}
+[INFO ] 2017-08-03 15:01:04,468 (Slf4jSpyLogDelegator.java:370) 
+ SELECT * FROM file where id = 9; 
+ {executed in 6 msec}
+[INFO ] 2017-08-03 15:01:04,468 (Slf4jSpyLogDelegator.java:370) 
+ SELECT * FROM file where id = 3; 
+ {executed in 2 msec}
+[INFO ] 2017-08-03 15:01:04,473 (Slf4jSpyLogDelegator.java:226) 
+ SELECT * FROM file where id = 1; 
+
+[INFO ] 2017-08-03 15:01:04,479 (Slf4jSpyLogDelegator.java:370) 
+ SELECT * FROM file where id = 1; 
+ {executed in 5 msec}
+[INFO ] 2017-08-03 15:01:04,492 (Slf4jSpyLogDelegator.java:226) 
+ SELECT * FROM file where id = 2; 
+
+[INFO ] 2017-08-03 15:01:04,493 (Slf4jSpyLogDelegator.java:370) 
+ SELECT * FROM file where id = 2; 
+ {executed in 1 msec}
+[INFO ] 2017-08-03 15:01:04,659 (Slf4jSpyLogDelegator.java:226) 
+ SELECT * FROM file where id = 8; 
+
+[INFO ] 2017-08-03 15:01:04,663 (Slf4jSpyLogDelegator.java:226) 
+ SELECT * FROM file where id = 6; 
+
+[INFO ] 2017-08-03 15:01:04,665 (Slf4jSpyLogDelegator.java:370) 
+ SELECT * FROM file where id = 6; 
+ {executed in 1 msec}
+[INFO ] 2017-08-03 15:01:04,665 (Slf4jSpyLogDelegator.java:370) 
+ SELECT * FROM file where id = 8; 
+ {executed in 5 msec}
+[INFO ] 2017-08-03 15:01:04,675 (Slf4jSpyLogDelegator.java:226) 
+ SELECT * FROM file where id = 4; 
+
+[INFO ] 2017-08-03 15:01:04,677 (Slf4jSpyLogDelegator.java:370) 
+ SELECT * FROM file where id = 4; 
+ {executed in 2 msec}
+[INFO ] 2017-08-03 15:01:04,749 (Slf4jSpyLogDelegator.java:226) 
+ SELECT * FROM file where id = 10; 
+
+[INFO ] 2017-08-03 15:01:04,750 (Slf4jSpyLogDelegator.java:370) 
+ SELECT * FROM file where id = 10; 
+ {executed in 1 msec}
+[INFO ] 2017-08-03 15:02:10,761 (Slf4jSpyLogDelegator.java:226) 
+ select * from category 
+
+[INFO ] 2017-08-03 15:02:10,761 (Slf4jSpyLogDelegator.java:226) 
+ select count(*) from product 
+
+[INFO ] 2017-08-03 15:02:10,764 (Slf4jSpyLogDelegator.java:370) 
+ select * from category 
+ {executed in 2 msec}
+[INFO ] 2017-08-03 15:02:10,765 (Slf4jSpyLogDelegator.java:226) 
+ select product.id , product.category_id , product.name,detail.content ,display.place_name, 
+img.file_id from product left outer join product_detail as detail on product.id = detail.product_id 
+left outer join display_info as display on product.id = display.product_id left outer join 
+product_image as img on product.id = img.product_id inner join file on file.id = img.file_id 
+where img.type = 1 limit 0 , 10 
+
+[INFO ] 2017-08-03 15:02:10,765 (Slf4jSpyLogDelegator.java:370) 
+ select count(*) from product 
+ {executed in 1 msec}
+[INFO ] 2017-08-03 15:02:10,771 (Slf4jSpyLogDelegator.java:370) 
+ select product.id , product.category_id , product.name,detail.content ,display.place_name, 
+img.file_id from product left outer join product_detail as detail on product.id = detail.product_id 
+left outer join display_info as display on product.id = display.product_id left outer join 
+product_image as img on product.id = img.product_id inner join file on file.id = img.file_id 
+where img.type = 1 limit 0 , 10 
+ {executed in 5 msec}
+[INFO ] 2017-08-03 15:02:10,910 (Slf4jSpyLogDelegator.java:226) 
+ SELECT * FROM file where id = 1; 
+
+[INFO ] 2017-08-03 15:02:10,911 (Slf4jSpyLogDelegator.java:226) 
+ SELECT * FROM file where id = 3; 
+
+[INFO ] 2017-08-03 15:02:10,913 (Slf4jSpyLogDelegator.java:370) 
+ SELECT * FROM file where id = 1; 
+ {executed in 1 msec}
+[INFO ] 2017-08-03 15:02:10,914 (Slf4jSpyLogDelegator.java:370) 
+ SELECT * FROM file where id = 3; 
+ {executed in 3 msec}
+[INFO ] 2017-08-03 15:02:10,916 (Slf4jSpyLogDelegator.java:226) 
+ SELECT * FROM file where id = 7; 
+
+[INFO ] 2017-08-03 15:02:10,926 (Slf4jSpyLogDelegator.java:226) 
+ SELECT * FROM file where id = 9; 
+
+[INFO ] 2017-08-03 15:02:10,927 (Slf4jSpyLogDelegator.java:370) 
+ SELECT * FROM file where id = 7; 
+ {executed in 9 msec}
+[INFO ] 2017-08-03 15:02:10,930 (Slf4jSpyLogDelegator.java:226) 
+ SELECT * FROM file where id = 2; 
+
+[INFO ] 2017-08-03 15:02:10,932 (Slf4jSpyLogDelegator.java:370) 
+ SELECT * FROM file where id = 9; 
+ {executed in 5 msec}
+[INFO ] 2017-08-03 15:02:10,936 (Slf4jSpyLogDelegator.java:370) 
+ SELECT * FROM file where id = 2; 
+ {executed in 6 msec}
+[INFO ] 2017-08-03 15:02:10,964 (Slf4jSpyLogDelegator.java:226) 
+ SELECT * FROM file where id = 5; 
+
+[INFO ] 2017-08-03 15:02:10,965 (Slf4jSpyLogDelegator.java:370) 
+ SELECT * FROM file where id = 5; 
+ {executed in 1 msec}
+[INFO ] 2017-08-03 15:02:11,041 (Slf4jSpyLogDelegator.java:226) 
+ SELECT * FROM file where id = 8; 
+
+[INFO ] 2017-08-03 15:02:11,044 (Slf4jSpyLogDelegator.java:226) 
+ SELECT * FROM file where id = 4; 
+
+[INFO ] 2017-08-03 15:02:11,044 (Slf4jSpyLogDelegator.java:370) 
+ SELECT * FROM file where id = 8; 
+ {executed in 2 msec}
+[INFO ] 2017-08-03 15:02:11,045 (Slf4jSpyLogDelegator.java:226) 
+ SELECT * FROM file where id = 6; 
+
+[INFO ] 2017-08-03 15:02:11,046 (Slf4jSpyLogDelegator.java:226) 
+ SELECT * FROM file where id = 10; 
+
+[INFO ] 2017-08-03 15:02:11,048 (Slf4jSpyLogDelegator.java:370) 
+ SELECT * FROM file where id = 4; 
+ {executed in 3 msec}
+[INFO ] 2017-08-03 15:02:11,051 (Slf4jSpyLogDelegator.java:370) 
+ SELECT * FROM file where id = 6; 
+ {executed in 4 msec}
+[INFO ] 2017-08-03 15:02:11,054 (Slf4jSpyLogDelegator.java:370) 
+ SELECT * FROM file where id = 10; 
+ {executed in 6 msec}
